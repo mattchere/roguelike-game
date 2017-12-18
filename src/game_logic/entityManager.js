@@ -1,12 +1,18 @@
 import {
   compLoc,
+  randLocationExcluding,
+  getLocationsFrom,
 } from './utils';
 
+const compLocArray = (entArray, loc) => (
+  entArray.reduce((acc, e) =>
+    compLoc(e.location, loc) ? e : acc, false)
+);
+
 const checkLocForEntities = (entities, loc) => (
-  entities.enemies.reduce((acc, e) => (
-    compLoc(e.location, loc) ? e : acc
-  ), false)
-)
+  compLocArray(entities.enemies, loc) ||
+  compLocArray(entities.healthItems, loc)
+);
 
 const removeEnemy = (entities, enemyID) => {
   if (typeof enemyID !== 'number') {
@@ -38,9 +44,14 @@ const checkDead = (entities) => (
 
 const gameOver = (entities) => entities.player.stats.health <= 0;
 
+const generate = (locations, entityCreator) => (
+  locations.map((loc, index) => entityCreator(index, loc))
+);
+
 export {
   checkLocForEntities,
   removeEnemy,
   checkDead,
   gameOver,
+  generate,
 };

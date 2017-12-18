@@ -38,6 +38,7 @@ const enemies = [
 const entities = {
   player: player,
   enemies: enemies.slice(),
+  healthItems: [],
 };
 
 

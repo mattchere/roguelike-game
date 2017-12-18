@@ -12,6 +12,10 @@ const Screen = props => {
       const loc = e.location;
       screen[loc[0]][loc[1]] = 2;
     })
+    props.healthItems.forEach(item => {
+      const loc = item.location;
+      screen[loc[0]][loc[1]] = 3
+    })
   }
   else {
     screen = new Array(20).fill(0).map(() => new Array(30).fill(0));
@@ -40,6 +44,11 @@ Screen.propTypes = {
       health: PropTypes.number,
       level: PropTypes.level,
     }),
+    location: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
+  healthItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    healAmount: PropTypes.number,
     location: PropTypes.arrayOf(PropTypes.number),
   })).isRequired,
   gameOver: PropTypes.bool.isRequired,

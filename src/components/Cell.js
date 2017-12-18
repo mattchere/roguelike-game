@@ -6,6 +6,7 @@ const Cell = props => {
     'black',
     'red',
     'grey',
+    'green',
   ]
   const bgStyle = {
     backgroundColor: backgrounds[props.val]

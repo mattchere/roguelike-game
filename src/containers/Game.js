@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import StatsBar from '../components/StatsBar';
 import Screen from '../components/Screen';
 
-import { generateEnemies } from '../game_logic/enemySpawn';
-import { getAttackRange } from '../game_logic/attack';
-
 import {
   createMove,
   createAttack,
@@ -12,8 +9,12 @@ import {
   createGameOver,
   createResetPlayer,
 } from '../actions';
+
+import { getAttackRange } from '../game_logic/attack';
+import { createEnemy, createHealthItem } from '../game_logic/entitiyCreators';
+import { generateRandomLocations } from '../game_logic/utils';
 import { canMove, getNewPos } from '../game_logic/move';
-import { checkLocForEntities, checkDead, gameOver } from '../game_logic/entityManager';
+import { checkLocForEntities, checkDead, gameOver, generate } from '../game_logic/entityManager';
 import { entityReducer } from '../game_logic/entityReducer';
 import { gameOverReducer } from '../game_logic/gameOverReducer';
 
@@ -22,12 +23,14 @@ class Game extends Component {
 
   componentDidMount(nextProps) {
     document.addEventListener('keydown', this.handleKeyDown);
+    const locations = generateRandomLocations(8, this.state.entities.player);
     this.setState({
       entities: {
         ...this.state.entities,
-        enemies: generateEnemies(5, this.state.entities.player),
+        enemies: generate(locations.slice(0, 5), createEnemy),
+        healthItems: generate(locations.slice(5), createHealthItem)
       }
-    })
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -97,6 +100,8 @@ class Game extends Component {
         location: [10,15],
       },
       enemies: [],
+      healthItems: [],
+      weapons: [],
     },
     gameOver: false,
   }
@@ -112,6 +117,7 @@ class Game extends Component {
         <Screen
           playerLoc={playerLoc}
           enemies={this.state.entities.enemies}
+          healthItems={this.state.entities.healthItems}
           gameOver={this.state.gameOver}
         />
         <StatsBar stats={playerStats} />

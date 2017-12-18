@@ -36,7 +36,7 @@ const enemies = [
 ];
 
 describe('ATTACK FUNCTIONS', () => {
-
+  
   const enemy = Object.assign({}, enemies[0], );
 
   describe('getWeaponAttack', () => {

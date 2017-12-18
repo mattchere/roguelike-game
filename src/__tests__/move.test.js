@@ -40,7 +40,7 @@ const entities = {
 };
 
 describe('MOVE FUNCTIONS', () => {
-
+  
   describe('moveActor', () => {
     it('should return an object with the same properties', () => {
       expect(Object.keys(moveActor(player, [1,0]))).toEqual(Object.keys(player));
