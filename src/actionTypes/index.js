@@ -1,0 +1,7 @@
+const MOVE = 'MOVE';
+const ATTACK = 'ATTACK';
+const KILL = 'KILL';
+const GAMEOVER = 'GAMEOVER'
+const RESET_PLAYER = 'RESET_PLAYER';
+
+export { MOVE, ATTACK, KILL, GAMEOVER, RESET_PLAYER };

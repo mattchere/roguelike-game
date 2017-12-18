@@ -1,0 +1,51 @@
+body {
+  background-color: #292424;
+  font-family: "Lato", sans-serif;
+}
+
+.main-container {
+  background-color: #E0E6EF;
+  border-radius: 10px;
+  margin: 50px auto;
+  padding: 10px;
+  width: 700px;
+}
+.header {
+  text-align: center;
+}
+.screen,
+.stats-bar {
+  margin: 0 auto;
+  width: 600px;
+}
+.stats-bar {
+  margin-bottom: 50px;
+  padding: 0;
+}
+.stat {
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-left: 0;
+  display: inline-block;
+  list-style: none;
+  padding: 10px 0;
+  text-align: center;
+  width: 120px;
+}
+.stat:nth-child(1) {
+  border-left: 1px solid black;
+}
+
+.screen {
+  box-sizing: border-box;
+  /* border: 1px solid black; */
+  border-bottom: 0;
+  height: 400px;
+}
+.cell {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 20px;
+  vertical-align: top;
+  width: 20px;
+}
