@@ -12,7 +12,8 @@ const compLocArray = (entArray, loc) => (
 
 const checkLocForEntities = (entities, loc) => (
   compLocArray(entities.enemies, loc) ||
-  compLocArray(entities.healthItems, loc)
+  compLocArray(entities.healthItems, loc) ||
+  compLocArray(entities.weapons, loc)
 );
 
 const removeEntity = (entities, entity) => {
@@ -31,6 +32,14 @@ const removeEntity = (entities, entity) => {
       ...entities,
       healthItems,
     };
+  }
+  else if (entity.name) {
+    // It's a weapon item
+    const weapons = removeEntityFromArray(entities.weapons, entity);
+    return {
+      ...entities,
+      weapons,
+    }
   }
   else {
     throw new Error('Invalid entity provided');

@@ -48,10 +48,24 @@ const healthItems = [
   },
 ];
 
+const weapons = [
+  {
+    id: 0,
+    name: 'Knife',
+    location: [2,2],
+  },
+  {
+    id: 1,
+    name: 'Dagger',
+    location: [2,3],
+  },
+];
+
 const entities = {
   player: player,
   enemies: enemies.slice(),
   healthItems: healthItems.slice(),
+  weapons: weapons.slice(),
 };
 
 
@@ -73,9 +87,11 @@ describe('ENTITY MANAGER FUNCTIONS', () => {
     it('should return the new entities object without that entity', () => {
       const removedEnemy = removeEntity(entities, enemies[0]).enemies;
       const removedHealthItem = removeEntity(entities, healthItems[0]).healthItems;
+      const removedWeapon = removeEntity(entities, weapons[0]).weapons;
 
       expect(removedEnemy.length).toBe(entities.enemies.length-1);
       expect(removedHealthItem.length).toBe(entities.healthItems.length-1);
+      expect(removedWeapon.length).toBe(entities.weapons.length-1);
 
       removedEnemy.forEach(e => {
         expect(e.id).not.toBe(enemies[0].id);
@@ -83,6 +99,10 @@ describe('ENTITY MANAGER FUNCTIONS', () => {
 
       removedHealthItem.forEach(e => {
         expect(e.id).not.toBe(healthItems[0].id);
+      });
+
+      removedWeapon.forEach(e => {
+        expect(e.id).not.toBe(weapons[0].id);
       });
     });
   });

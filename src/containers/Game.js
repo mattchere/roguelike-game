@@ -10,6 +10,7 @@ import {
   createResetPlayer,
   createHeal,
   createRemoveEntity,
+  createPickup,
 } from '../actions';
 
 import { getAttackRange } from '../game_logic/attack';
@@ -31,13 +32,13 @@ class Game extends Component {
 
   componentDidMount(nextProps) {
     document.addEventListener('keydown', this.handleKeyDown);
-    const locations = generateRandomLocations(14, this.state.entities.player);
+    const locations = generateRandomLocations(12, this.state.entities.player);
     this.setState({
       entities: {
         ...this.state.entities,
-        enemies: generate(locations.slice(0, 5), createEnemy),
-        healthItems: generate(locations.slice(5, 9), createHealthItem),
-        weapons: generateWeps(locations.slice(9)),
+        weapons: generateWeps(locations.slice(0, 4)),
+        enemies: generate(locations.slice(4, 9), createEnemy),
+        healthItems: generate(locations.slice(9), createHealthItem),
       }
     });
   }
@@ -90,6 +91,12 @@ class Game extends Component {
       this.dispatch(createRemoveEntity(entity));
       this.dispatch(createMove(newPos));
       this.dispatch(createHeal(entity.healAmount));
+    }
+    else if (entity.name) {
+      // It's a weapon
+      this.dispatch(createRemoveEntity(entity));
+      this.dispatch(createMove(newPos));
+      this.dispatch(createPickup(entity.name));
     }
   }
 

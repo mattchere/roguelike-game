@@ -5,6 +5,7 @@ const GAMEOVER = 'GAMEOVER'
 const RESET_PLAYER = 'RESET_PLAYER';
 const HEAL = 'HEAL';
 const REMOVE_ENTITY = 'REMOVE_ENTITY';
+const PICKUP = 'PICKUP';
 
 export { 
   MOVE, 
@@ -14,4 +15,5 @@ export {
   RESET_PLAYER, 
   HEAL,
   REMOVE_ENTITY,
+  PICKUP,
 };

@@ -6,6 +6,7 @@ import{
   RESET_PLAYER,
   HEAL,
   REMOVE_ENTITY,
+  PICKUP,
 } from '../actionTypes';
 
 const createMove = (newPos) => ({
@@ -37,19 +38,26 @@ const createResetPlayer = () => ({
   type: RESET_PLAYER,
 });
 
-const createHeal = (healAmount) => ({
+const createHeal = healAmount => ({
   type: HEAL,
   payload: {
     healAmount: healAmount,
   }
 });
 
-const createRemoveEntity = (entity) => ({
+const createRemoveEntity = entity => ({
   type: REMOVE_ENTITY,
   payload: {
     entity,
   }
 });
+
+const createPickup = name => ({
+  type: PICKUP,
+  payload: {
+    name,
+  }
+})
 
 export {
   createMove,
@@ -59,4 +67,5 @@ export {
   createResetPlayer,
   createHeal,
   createRemoveEntity,
+  createPickup,
 };

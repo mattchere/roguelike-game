@@ -9,6 +9,7 @@ import {
   removeEntity
 } from './entityManager';
 import { heal } from './heal';
+import { pickupWeapon } from './weapons';
 
 const entityReducer = (entities, action) => {
   switch(action.type) {
@@ -25,6 +26,7 @@ const entityReducer = (entities, action) => {
     case 'HEAL':
       return executeHeal(entities, action.payload.healAmount);
     case 'PICKUP':
+      return executePickup(entities, action.payload.name);
       break;
     default:
       break;
@@ -82,6 +84,11 @@ const resetPlayer = entities => ({
 const executeHeal = (entities, healAmount) => ({
   ...entities,
   player: heal(entities.player, healAmount),
+});
+
+const executePickup = (entities, wepName) => ({
+  ...entities,
+  player: pickupWeapon(entities.player, wepName),
 });
 
 export {

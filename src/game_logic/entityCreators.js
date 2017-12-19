@@ -14,27 +14,18 @@ const createHealthItem = (id, location) => ({
 });
 
 const createWeaponsArray = () => {
-  const wepAttacks = {
-    Fist: 20,
-    Knife: 40,
-    Dagger: 60,
-    'Short sword': 80,
-    'Long sword': 100,
-  };
-
   const weapons = [
-    'Fist',
     'Knife',
     'Dagger',
     'Short sword',
     'Long sword'
   ];
-  return weapons.map(w => weaponCreator(wepAttacks[w]));
+  return weapons.map(w => weaponCreator(w));
 };
 
-const weaponCreator = attack => (id, location) => ({
+const weaponCreator = name => (id, location) => ({
   id,
-  attack,
+  name,
   location: location.slice(),
 });
 
