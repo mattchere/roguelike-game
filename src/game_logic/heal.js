@@ -1,8 +1,8 @@
-const heal = (player, healthItem) => ({
+const heal = (player, healAmount) => ({
   ...player,
   stats: {
     ...player.stats,
-    health: player.stats.health + healthItem.healAmount,
+    health: player.stats.health + healAmount,
   }
 });
 

@@ -6,8 +6,9 @@ import {
   moveActor,   
 } from './move';
 import {
-  removeEnemy
+  removeEntity
 } from './entityManager';
+import { heal } from './heal';
 
 const entityReducer = (entities, action) => {
   switch(action.type) {
@@ -19,6 +20,10 @@ const entityReducer = (entities, action) => {
       return kill(entities, action.payload.enemy);
     case 'RESET_PLAYER':
       return resetPlayer(entities);
+    case 'REMOVE_ENTITY':
+      return removeEntity(entities, action.payload.entity);
+    case 'HEAL':
+      return executeHeal(entities, action.payload.healAmount);
     case 'PICKUP':
       break;
     default:
@@ -50,8 +55,8 @@ const attack = (entities, enemy, getDamage) => {
   };
 }
 
-const kill = (entities, enemy) => ({
-  ...removeEnemy(entities, enemy.id),
+const kill = (entities, entity) => ({
+  ...removeEntity(entities, entity),
   player: {
     ...entities.player,
     stats: {
@@ -61,7 +66,7 @@ const kill = (entities, enemy) => ({
   },
 });
 
-const resetPlayer = (entities) => ({
+const resetPlayer = entities => ({
   ...entities,
   player: {
     stats: {
@@ -72,6 +77,11 @@ const resetPlayer = (entities) => ({
     },
     location: [10,15],
   }
+});
+
+const executeHeal = (entities, healAmount) => ({
+  ...entities,
+  player: heal(entities.player, healAmount),
 });
 
 export {

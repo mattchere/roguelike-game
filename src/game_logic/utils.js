@@ -7,7 +7,7 @@ const randLocationExcluding = (otherLocations) => {
 
   // A function that returns a random location
   const randLocation = (height, width) => (
-    [Math.floor(Math.random()*height), Math.floor(Math.random()*width)]
+    [randInt(0, height), randInt(0, width)]
   );
 
   let location;

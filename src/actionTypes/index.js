@@ -3,5 +3,15 @@ const ATTACK = 'ATTACK';
 const KILL = 'KILL';
 const GAMEOVER = 'GAMEOVER'
 const RESET_PLAYER = 'RESET_PLAYER';
+const HEAL = 'HEAL';
+const REMOVE_ENTITY = 'REMOVE_ENTITY';
 
-export { MOVE, ATTACK, KILL, GAMEOVER, RESET_PLAYER };
+export { 
+  MOVE, 
+  ATTACK, 
+  KILL, 
+  GAMEOVER, 
+  RESET_PLAYER, 
+  HEAL,
+  REMOVE_ENTITY,
+};

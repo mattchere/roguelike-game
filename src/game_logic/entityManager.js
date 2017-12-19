@@ -14,27 +14,31 @@ const checkLocForEntities = (entities, loc) => (
   compLocArray(entities.healthItems, loc)
 );
 
-const removeEnemy = (entities, enemyID) => {
-  if (typeof enemyID !== 'number') {
-    throw new Error('Must provide a valid number for the enemyID');
+const removeEntity = (entities, entity) => {
+  if (entity.stats) {
+    // Enemy
+    const enemies = removeEntityFromArray(entities.enemies, entity);
+    return {
+      ...entities,
+      enemies,
+    };
   }
-
-  const exists = entities.enemies.reduce((acc, e) => (
-    e.id === enemyID || acc
-  ), false);
-
-  if (!exists) {
-    throw new Error('Enemy ID does not exist');
+  else if (entity.healAmount) {
+    // Health item
+    const healthItems = removeEntityFromArray(entities.healthItems, entity);
+    return {
+      ...entities,
+      healthItems,
+    };
   }
-
-  return {
-    ...entities,
-    enemies: [
-      ...entities.enemies.slice(0, enemyID),
-      ...entities.enemies.slice(enemyID+1)
-    ]
+  else {
+    throw new Error('Invalid entity provided');
   }
 };
+
+const removeEntityFromArray = (array, entity) => (
+  array.filter(e => e.id !== entity.id)
+);
 
 const checkDead = (entities) => (
   entities.enemies.reduce((acc, e) => (
@@ -50,7 +54,7 @@ const generate = (locations, entityCreator) => (
 
 export {
   checkLocForEntities,
-  removeEnemy,
+  removeEntity,
   checkDead,
   gameOver,
   generate,

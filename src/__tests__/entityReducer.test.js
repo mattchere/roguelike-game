@@ -110,7 +110,7 @@ describe('ENTITY REDUCER FUNCTIONS', () => {
   });
 
   describe('kill', () => {
-    it('should remove the given enemy', () => {
+    it('should kill the given enemy', () => {
       const expected = [
         ...enemies.slice(1),
       ]

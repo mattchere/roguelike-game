@@ -19,7 +19,6 @@ const Screen = props => {
   }
   else {
     screen = new Array(20).fill(0).map(() => new Array(30).fill(0));
-    console.log('yup');
   }
 
   return (

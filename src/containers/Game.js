@@ -8,6 +8,8 @@ import {
   createKill,
   createGameOver,
   createResetPlayer,
+  createHeal,
+  createRemoveEntity,
 } from '../actions';
 
 import { getAttackRange } from '../game_logic/attack';
@@ -75,6 +77,12 @@ class Game extends Component {
     else if (entity.stats) {
       // It's an enemy
       this.dispatch(createAttack(entity));
+    }
+    else if (entity.healAmount) {
+      // It's a health item
+      this.dispatch(createRemoveEntity(entity));
+      this.dispatch(createMove(newPos));
+      this.dispatch(createHeal(entity.healAmount));
     }
   }
 

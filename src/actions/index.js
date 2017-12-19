@@ -4,6 +4,8 @@ import{
   KILL,
   GAMEOVER,
   RESET_PLAYER,
+  HEAL,
+  REMOVE_ENTITY,
 } from '../actionTypes';
 
 const createMove = (newPos) => ({
@@ -35,10 +37,26 @@ const createResetPlayer = () => ({
   type: RESET_PLAYER,
 });
 
+const createHeal = (healAmount) => ({
+  type: HEAL,
+  payload: {
+    healAmount: healAmount,
+  }
+});
+
+const createRemoveEntity = (entity) => ({
+  type: REMOVE_ENTITY,
+  payload: {
+    entity,
+  }
+});
+
 export {
   createMove,
   createAttack,
   createKill,
   createGameOver,
   createResetPlayer,
+  createHeal,
+  createRemoveEntity,
 };

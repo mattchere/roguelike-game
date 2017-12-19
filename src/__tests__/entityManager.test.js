@@ -1,6 +1,6 @@
 import {
   checkLocForEntities,
-  removeEnemy,
+  removeEntity,
   checkDead,
   gameOver,
 } from '../game_logic/entityManager';
@@ -35,17 +35,30 @@ const enemies = [
   },
 ];
 
+const healthItems = [
+  {
+    id: 0,
+    healAmount: 50,
+    location: [0,0],
+  },
+  {
+    id: 1,
+    healAmount: 25,
+    location: [0,1],
+  },
+];
+
 const entities = {
   player: player,
   enemies: enemies.slice(),
-  healthItems: [],
+  healthItems: healthItems.slice(),
 };
 
 
 describe('ENTITY MANAGER FUNCTIONS', () => {
   describe('checkLocForEntities', () => {
     it('should return false if no entities are on that position', () => {
-      expect(checkLocForEntities(entities, [0,0])).toBeFalsy();
+      expect(checkLocForEntities(entities, [10,10])).toBeFalsy();
     });
     it('should return the correct entity if it exists', () => {
       expect(checkLocForEntities(entities, [1,1])).toEqual(enemies[0]);
@@ -53,19 +66,24 @@ describe('ENTITY MANAGER FUNCTIONS', () => {
     });
   });
 
-  describe('removeEnemy', () => {
-    it('should throw an error if a number is not given', () => {
-      expect(() => removeEnemy(entities, '')).toThrow('Must provide a valid number for the enemyID');
+  describe('removeEntity', () => {
+    it('should throw an error if an invalid entity is given', () => {
+      expect(() => removeEntity({}, 50)).toThrow('Invalid entity provided');
     });
-    it('should throw an error if the enemyID does not exist', () => {
-      expect(() => removeEnemy(entities, 50)).toThrow('Enemy ID does not exist');
-    });
-    it('should return the new entities object without that enemy', () => {
-      const newEnemies = removeEnemy(entities, 0).enemies;
-      expect(newEnemies.length).toBe(entities.enemies.length-1);
-      for (let i=0; i<newEnemies.length; i++) {
-        expect(newEnemies[i].id).not.toBe(0);
-      }
+    it('should return the new entities object without that entity', () => {
+      const removedEnemy = removeEntity(entities, enemies[0]).enemies;
+      const removedHealthItem = removeEntity(entities, healthItems[0]).healthItems;
+
+      expect(removedEnemy.length).toBe(entities.enemies.length-1);
+      expect(removedHealthItem.length).toBe(entities.healthItems.length-1);
+
+      removedEnemy.forEach(e => {
+        expect(e.id).not.toBe(enemies[0].id);
+      });
+
+      removedHealthItem.forEach(e => {
+        expect(e.id).not.toBe(healthItems[0].id);
+      });
     });
   });
 
