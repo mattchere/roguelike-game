@@ -13,10 +13,16 @@ import {
 } from '../actions';
 
 import { getAttackRange } from '../game_logic/attack';
-import { createEnemy, createHealthItem } from '../game_logic/entitiyCreators';
+import { createEnemy, createHealthItem, createWeapons } from '../game_logic/entityCreators';
 import { generateRandomLocations } from '../game_logic/utils';
 import { canMove, getNewPos } from '../game_logic/move';
-import { checkLocForEntities, checkDead, gameOver, generate } from '../game_logic/entityManager';
+import { 
+  checkLocForEntities, 
+  checkDead, 
+  gameOver, 
+  generate,
+  generateWeps,
+} from '../game_logic/entityManager';
 import { entityReducer } from '../game_logic/entityReducer';
 import { gameOverReducer } from '../game_logic/gameOverReducer';
 
@@ -25,12 +31,13 @@ class Game extends Component {
 
   componentDidMount(nextProps) {
     document.addEventListener('keydown', this.handleKeyDown);
-    const locations = generateRandomLocations(8, this.state.entities.player);
+    const locations = generateRandomLocations(14, this.state.entities.player);
     this.setState({
       entities: {
         ...this.state.entities,
         enemies: generate(locations.slice(0, 5), createEnemy),
-        healthItems: generate(locations.slice(5), createHealthItem)
+        healthItems: generate(locations.slice(5, 9), createHealthItem),
+        weapons: generateWeps(locations.slice(9)),
       }
     });
   }
@@ -126,6 +133,7 @@ class Game extends Component {
           playerLoc={playerLoc}
           enemies={this.state.entities.enemies}
           healthItems={this.state.entities.healthItems}
+          weapons={this.state.entities.weapons}
           gameOver={this.state.gameOver}
         />
         <StatsBar stats={playerStats} />

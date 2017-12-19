@@ -6,7 +6,7 @@ const Screen = props => {
   // Copy the background array
   const background = new Array(20).fill(0).map(() => new Array(30).fill(0));
   let screen = background.map(row => row.slice());
-  if (!props.gameOver){
+  if (!props.gameOver) {
     screen[props.playerLoc[0]][props.playerLoc[1]] = 1;
     props.enemies.forEach(e => {
       const loc = e.location;
@@ -15,6 +15,10 @@ const Screen = props => {
     props.healthItems.forEach(item => {
       const loc = item.location;
       screen[loc[0]][loc[1]] = 3
+    })
+    props.weapons.forEach(w => {
+      const loc = w.location;
+      screen[loc[0]][loc[1]] = 4;
     })
   }
   else {
@@ -48,6 +52,11 @@ Screen.propTypes = {
   healthItems: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     healAmount: PropTypes.number,
+    location: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
+  weapons: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    attack: PropTypes.number,
     location: PropTypes.arrayOf(PropTypes.number),
   })).isRequired,
   gameOver: PropTypes.bool.isRequired,

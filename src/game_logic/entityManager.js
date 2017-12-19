@@ -3,6 +3,7 @@ import {
   randLocationExcluding,
   getLocationsFrom,
 } from './utils';
+import { createWeaponsArray } from './entityCreators';
 
 const compLocArray = (entArray, loc) => (
   entArray.reduce((acc, e) =>
@@ -52,10 +53,15 @@ const generate = (locations, entityCreator) => (
   locations.map((loc, index) => entityCreator(index, loc))
 );
 
+const generateWeps = (locations) => (
+  locations.map((loc, i) => createWeaponsArray()[i](i, loc))
+);
+
 export {
   checkLocForEntities,
   removeEntity,
   checkDead,
   gameOver,
   generate,
+  generateWeps,
 };
