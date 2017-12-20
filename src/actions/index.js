@@ -7,6 +7,7 @@ import{
   HEAL,
   REMOVE_ENTITY,
   PICKUP,
+  LEVEL_UP
 } from '../actionTypes';
 
 const createMove = (newPos) => ({
@@ -57,7 +58,11 @@ const createPickup = name => ({
   payload: {
     name,
   }
-})
+});
+
+const createLevelUp = () => ({
+  type: LEVEL_UP,
+});
 
 export {
   createMove,
@@ -68,4 +73,5 @@ export {
   createHeal,
   createRemoveEntity,
   createPickup,
+  createLevelUp,
 };

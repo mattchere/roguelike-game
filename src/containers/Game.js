@@ -11,6 +11,7 @@ import {
   createHeal,
   createRemoveEntity,
   createPickup,
+  createLevelUp,
 } from '../actions';
 
 import { getAttackRange } from '../game_logic/attack';
@@ -53,6 +54,9 @@ class Game extends Component {
     }
     else if (dead.length !== 0) {
       this.dispatch(createKill(dead[0]));
+    }
+    else if (this.state.entities.player.stats.xp >= 100) {
+      this.dispatch(createLevelUp());
     }
   }
 
@@ -134,7 +138,7 @@ class Game extends Component {
     const playerAttackRange = getAttackRange(this.state.entities.player);
     const playerStats = Object.assign({}, this.state.entities.player.stats, {
       attack: `${playerAttackRange.min}-${playerAttackRange.max}`
-    });
+    }); 
 
     const vision = getVisionArray(playerLoc);
     const enemies = this.state.entities.enemies

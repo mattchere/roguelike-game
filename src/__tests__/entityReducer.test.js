@@ -2,6 +2,7 @@ import {
   movePlayer,
   attack,
   kill,
+  levelUp,
 } from '../game_logic/entityReducer';
 
 // Define globals
@@ -10,7 +11,7 @@ const player = {
     health: 100,
     weapon: 'Fist',
     level: 1,
-    xp: 0,
+    xp: 100,
   },
   location: [10, 15],
 };
@@ -122,4 +123,29 @@ describe('ENTITY REDUCER FUNCTIONS', () => {
       ).toBe(entities.player.stats.xp + 25);
     });
   });
+
+  describe('levelUp', () => {
+    const levelled = levelUp(entities);
+    it('should not modify anything but player level and xp', () => {
+      const received = {
+        ...levelled,
+        player: {
+          ...levelled.player,
+          stats: {
+            ...levelled.player.stats,
+            xp: 100,
+            level: 1,
+          }
+        }
+      };
+
+      expect(received).toEqual(entities);
+    });
+    it('should reset xp to 0', () => {
+      expect(levelled.player.stats.xp).toBe(0);
+    });
+    it('should add one to the level', () => {
+      expect(levelled.player.stats.level).toBe(2);
+    });
+  })
 });

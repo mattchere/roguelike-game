@@ -6,6 +6,7 @@ const RESET_PLAYER = 'RESET_PLAYER';
 const HEAL = 'HEAL';
 const REMOVE_ENTITY = 'REMOVE_ENTITY';
 const PICKUP = 'PICKUP';
+const LEVEL_UP = 'LEVEL_UP';
 
 export { 
   MOVE, 
@@ -16,4 +17,5 @@ export {
   HEAL,
   REMOVE_ENTITY,
   PICKUP,
+  LEVEL_UP,
 };

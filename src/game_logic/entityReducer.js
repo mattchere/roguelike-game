@@ -27,6 +27,8 @@ const entityReducer = (entities, action) => {
       return executeHeal(entities, action.payload.healAmount);
     case 'PICKUP':
       return executePickup(entities, action.payload.name);
+    case 'LEVEL_UP':
+      return levelUp(entities);
     default:
       break;
   }
@@ -90,9 +92,22 @@ const executePickup = (entities, wepName) => ({
   player: pickupWeapon(entities.player, wepName),
 });
 
+const levelUp = (entities) => ({
+  ...entities,
+  player: {
+    ...entities.player,
+    stats: {
+      ...entities.player.stats,
+      xp: 0,
+      level: entities.player.stats.level + 1,
+    }
+  }
+});
+
 export {
   entityReducer,
   movePlayer,
   attack,
   kill,
+  levelUp,
 };
