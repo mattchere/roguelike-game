@@ -27,7 +27,6 @@ const entityReducer = (entities, action) => {
       return executeHeal(entities, action.payload.healAmount);
     case 'PICKUP':
       return executePickup(entities, action.payload.name);
-      break;
     default:
       break;
   }

@@ -14,7 +14,7 @@ import {
 } from '../actions';
 
 import { getAttackRange } from '../game_logic/attack';
-import { createEnemy, createHealthItem, createWeapons } from '../game_logic/entityCreators';
+import { createEnemy, createHealthItem } from '../game_logic/entityCreators';
 import { generateRandomLocations } from '../game_logic/utils';
 import { canMove, getNewPos } from '../game_logic/move';
 import { 
@@ -26,6 +26,7 @@ import {
 } from '../game_logic/entityManager';
 import { entityReducer } from '../game_logic/entityReducer';
 import { gameOverReducer } from '../game_logic/gameOverReducer';
+import { getVisionArray, inVision } from '../game_logic/vision';
 
 
 class Game extends Component {
@@ -134,13 +135,22 @@ class Game extends Component {
     const playerStats = Object.assign({}, this.state.entities.player.stats, {
       attack: `${playerAttackRange.min}-${playerAttackRange.max}`
     });
+
+    const vision = getVisionArray(playerLoc);
+    const enemies = this.state.entities.enemies
+      .filter(e => inVision(vision, e.location));
+    const healthItems = this.state.entities.healthItems
+      .filter(e => inVision(vision, e.location));
+    const weapons = this.state.entities.weapons
+      .filter(e => inVision(vision, e.location));
     return (
       <div>
         <Screen
+          vision={vision}
           playerLoc={playerLoc}
-          enemies={this.state.entities.enemies}
-          healthItems={this.state.entities.healthItems}
-          weapons={this.state.entities.weapons}
+          enemies={enemies}
+          healthItems={healthItems}
+          weapons={weapons}
           gameOver={this.state.gameOver}
         />
         <StatsBar stats={playerStats} />

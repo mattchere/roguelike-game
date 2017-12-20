@@ -7,19 +7,32 @@ const Screen = props => {
   const background = new Array(20).fill(0).map(() => new Array(30).fill(0));
   let screen = background.map(row => row.slice());
   if (!props.gameOver) {
+    // Game still in play
+    // Draw the visible
+    props.vision.forEach(loc => {
+      screen[loc[0]][loc[1]] = 5;
+    });
+
+    // Draw the player
     screen[props.playerLoc[0]][props.playerLoc[1]] = 1;
+
+    // Draw the enemies
     props.enemies.forEach(e => {
       const loc = e.location;
       screen[loc[0]][loc[1]] = 2;
-    })
+    });
+
+    // Draw the health items
     props.healthItems.forEach(item => {
       const loc = item.location;
       screen[loc[0]][loc[1]] = 3
-    })
+    });
+
+    // Draw the weapons
     props.weapons.forEach(w => {
       const loc = w.location;
       screen[loc[0]][loc[1]] = 4;
-    })
+    });
   }
   else {
     screen = new Array(20).fill(0).map(() => new Array(30).fill(0));
@@ -40,6 +53,7 @@ const Screen = props => {
 }
 
 Screen.propTypes = {
+  vision: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   playerLoc: PropTypes.arrayOf(PropTypes.number).isRequired,
   enemies: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,

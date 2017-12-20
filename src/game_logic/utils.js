@@ -43,10 +43,15 @@ const generateRandomLocations = (n, player) => {
   return locations;
 };
 
+const validLocation = loc => (
+  loc[0] >= 0 && loc[0] < 20 && loc[1] >= 0 && loc[1] < 30
+);
+
 export {
   randLocationExcluding,
   compLoc,
   checkLoc,
   getLocationsFrom,
   generateRandomLocations,
+  validLocation,
 };

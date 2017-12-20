@@ -1,3 +1,5 @@
+import { validLocation } from './utils';
+
 // Movement related actions
 
 const moveActor = (actor, newPos) => ({
@@ -6,10 +8,7 @@ const moveActor = (actor, newPos) => ({
 });
 
 const canMove = (entities, newPos) => {
-  if (newPos[0] >= 0 &&
-    newPos[1] >= 0 &&
-    newPos[0] < 20 &&
-    newPos[1] < 30) {
+  if (validLocation(newPos)) {
 
     return entities.enemies.reduce((acc, e) => 
       acc && (newPos[0] !== e.location[0] || newPos[1] !== e.location[1])

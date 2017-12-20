@@ -8,6 +8,7 @@ const Cell = props => {
     'grey',
     'green',
     'yellow',
+    'blue',
   ]
   const bgStyle = {
     backgroundColor: backgrounds[props.val]

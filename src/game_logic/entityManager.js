@@ -1,7 +1,5 @@
 import {
   compLoc,
-  randLocationExcluding,
-  getLocationsFrom,
 } from './utils';
 import { createWeaponsArray } from './entityCreators';
 
