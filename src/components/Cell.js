@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 const Cell = props => {
   const backgrounds = [
     'black',
-    'red',
+    'orange',
     'grey',
     'green',
     'yellow',
     'blue',
+    'red',
   ]
   const bgStyle = {
     backgroundColor: backgrounds[props.val]

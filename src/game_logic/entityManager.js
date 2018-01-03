@@ -11,7 +11,8 @@ const compLocArray = (entArray, loc) => (
 const checkLocForEntities = (entities, loc) => (
   compLocArray(entities.enemies, loc) ||
   compLocArray(entities.healthItems, loc) ||
-  compLocArray(entities.weapons, loc)
+  compLocArray(entities.weapons, loc) ||
+  compLocArray([entities.boss], loc)
 );
 
 const removeEntity = (entities, entity) => {

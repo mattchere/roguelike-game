@@ -12,10 +12,11 @@ import {
   createRemoveEntity,
   createPickup,
   createLevelUp,
+  createSpawnBoss,
 } from '../actions';
 
 import { getAttackRange } from '../game_logic/attack';
-import { createEnemy, createHealthItem } from '../game_logic/entityCreators';
+import { createEnemy, createHealthItem, createBoss } from '../game_logic/entityCreators';
 import { generateRandomLocations } from '../game_logic/utils';
 import { canMove, getNewPos } from '../game_logic/move';
 import { 
@@ -34,13 +35,14 @@ class Game extends Component {
 
   componentDidMount(nextProps) {
     document.addEventListener('keydown', this.handleKeyDown);
-    const locations = generateRandomLocations(12, this.state.entities.player);
+    const locations = generateRandomLocations(13, this.state.entities.player);
     this.setState({
       entities: {
         ...this.state.entities,
         weapons: generateWeps(locations.slice(0, 4)),
         enemies: generate(locations.slice(4, 9), createEnemy),
-        healthItems: generate(locations.slice(9), createHealthItem),
+        healthItems: generate(locations.slice(9, 11), createHealthItem),
+        boss: createBoss(locations[12]),
       }
     });
   }
@@ -57,6 +59,13 @@ class Game extends Component {
     }
     else if (this.state.entities.player.stats.xp >= 100) {
       this.dispatch(createLevelUp());
+    }
+    else if (this.state.entities.enemies.length === 0) {
+      // All enemies have been killed
+      if (!this.state.entities.boss.spawned) {
+        // Boss has not been spawned yet
+        this.dispatch(createSpawnBoss());
+      }
     }
   }
 
@@ -129,6 +138,9 @@ class Game extends Component {
       enemies: [],
       healthItems: [],
       weapons: [],
+      boss: {
+        location: [-1,-1],
+      },
     },
     gameOver: false,
   }
@@ -147,6 +159,11 @@ class Game extends Component {
       .filter(e => inVision(vision, e.location));
     const weapons = this.state.entities.weapons
       .filter(e => inVision(vision, e.location));
+    const b = this.state.entities.boss;
+    let boss;
+    if (b.location && b.spawned) {
+      boss = inVision(vision, b.location) ? b : undefined;
+    }
     return (
       <div>
         <Screen
@@ -155,11 +172,12 @@ class Game extends Component {
           enemies={enemies}
           healthItems={healthItems}
           weapons={weapons}
+          boss={boss}
           gameOver={this.state.gameOver}
         />
         <StatsBar stats={playerStats} />
       </div>
-    )
+    );
   }
 }
 

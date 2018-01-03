@@ -7,7 +7,8 @@ import{
   HEAL,
   REMOVE_ENTITY,
   PICKUP,
-  LEVEL_UP
+  LEVEL_UP,
+  SPAWN_BOSS
 } from '../actionTypes';
 
 const createMove = (newPos) => ({
@@ -64,6 +65,10 @@ const createLevelUp = () => ({
   type: LEVEL_UP,
 });
 
+const createSpawnBoss = () => ({
+  type: SPAWN_BOSS,
+})
+
 export {
   createMove,
   createAttack,
@@ -74,4 +79,5 @@ export {
   createRemoveEntity,
   createPickup,
   createLevelUp,
+  createSpawnBoss,
 };

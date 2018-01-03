@@ -66,6 +66,9 @@ const entities = {
   enemies: enemies.slice(),
   healthItems: healthItems.slice(),
   weapons: weapons.slice(),
+  boss: {
+    location: [-1, -1],
+  }
 };
 
 

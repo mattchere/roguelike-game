@@ -7,6 +7,7 @@ const HEAL = 'HEAL';
 const REMOVE_ENTITY = 'REMOVE_ENTITY';
 const PICKUP = 'PICKUP';
 const LEVEL_UP = 'LEVEL_UP';
+const SPAWN_BOSS = 'SPAWN_BOSS';
 
 export { 
   MOVE, 
@@ -18,4 +19,5 @@ export {
   REMOVE_ENTITY,
   PICKUP,
   LEVEL_UP,
+  SPAWN_BOSS,
 };

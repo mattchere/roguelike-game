@@ -33,6 +33,12 @@ const Screen = props => {
       const loc = w.location;
       screen[loc[0]][loc[1]] = 4;
     });
+
+    if (props.boss) {
+      const bossLoc = props.boss.location;
+      screen[bossLoc[0]][bossLoc[1]] = 6;
+    }
+
   }
   else {
     screen = new Array(20).fill(0).map(() => new Array(30).fill(0));
@@ -73,6 +79,7 @@ Screen.propTypes = {
     attack: PropTypes.number,
     location: PropTypes.arrayOf(PropTypes.number),
   })).isRequired,
+  boss: PropTypes.object,
   gameOver: PropTypes.bool.isRequired,
 }
 

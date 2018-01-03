@@ -29,8 +29,18 @@ const weaponCreator = name => (id, location) => ({
   location: location.slice(),
 });
 
+const createBoss = location => ({
+  stats: {
+    health: 500,
+    level: 2,
+  },
+  spawned: false,
+  location,
+})
+
 export {
   createEnemy,
   createHealthItem,
   createWeaponsArray,
+  createBoss,
 };

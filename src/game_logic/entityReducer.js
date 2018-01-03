@@ -29,6 +29,8 @@ const entityReducer = (entities, action) => {
       return executePickup(entities, action.payload.name);
     case 'LEVEL_UP':
       return levelUp(entities);
+    case 'SPAWN_BOSS':
+      return spawnBoss(entities);
     default:
       break;
   }
@@ -101,6 +103,14 @@ const levelUp = (entities) => ({
       xp: 0,
       level: entities.player.stats.level + 1,
     }
+  }
+});
+
+const spawnBoss = entities => ({
+  ...entities,
+  boss: {
+    ...entities.boss,
+    spawned: true,
   }
 });
 
